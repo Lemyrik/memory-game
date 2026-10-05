@@ -1,9 +1,12 @@
+body,
+main {
+  margin: 0;
+  padding: 0;
+}
 body {
   width: 100vw;
   height: 100vh;
   background-color: thistle;
-  margin: 0;
-  padding: 0;
 }
 .header {
   display: flex;
@@ -26,4 +29,30 @@ body {
   background-color: rgb(204, 104, 138);
   box-shadow: 2px 2px rgb(173, 65, 101);
   cursor: pointer;
+}
+.main {
+  display: flex;
+  max-width: 100%;
+  justify-content: center;
+  min-height: calc(100vh - 72px);
+  align-items: center;
+}
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 350px;
+  height: fit-content;
+  padding: 10px;
+  background-color: rgb(207, 117, 147);
+  border-radius: 10px;
+}
+.card {
+  width: 80px;
+  height: 80px;
+  background-color: rgb(76, 179, 179);
+  border-radius: 10px;
+  font-size: 46px;
+  text-align: center;
+  line-height: 80px;
 }
