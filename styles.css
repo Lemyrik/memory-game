@@ -1,0 +1,29 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: thistle;
+  margin: 0;
+  padding: 0;
+}
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  max-width: 100%;
+  background-color: darkcyan;
+}
+
+.header__btn {
+  background-color: thistle;
+  padding: 8px;
+  border-radius: 18px;
+  box-shadow: 2px 2px rgb(211, 147, 211);
+  border-style: none;
+}
+.header__btn:hover {
+  background-color: rgb(204, 104, 138);
+  box-shadow: 2px 2px rgb(173, 65, 101);
+  cursor: pointer;
+}
