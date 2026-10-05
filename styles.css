@@ -36,6 +36,7 @@ body {
   justify-content: center;
   min-height: calc(100vh - 72px);
   align-items: center;
+  flex-direction: column;
 }
 .cardsContainer {
   display: flex;
@@ -55,4 +56,18 @@ body {
   font-size: 46px;
   text-align: center;
   line-height: 80px;
+  cursor: pointer;
+}
+.card__img--hiden {
+  display: none;
+}
+.card--active {
+  background-color: green;
+  cursor: default;
+}
+
+.game__info {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
 }
