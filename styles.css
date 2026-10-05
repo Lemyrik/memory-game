@@ -86,3 +86,12 @@ dialog::backdrop {
 dialog:not([open]) {
   display: none;
 }
+table {
+  border: 2px solid rgb(140 140 140);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 10px;
+}

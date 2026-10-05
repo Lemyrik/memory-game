@@ -16,6 +16,7 @@ const CARDS = [
   "❄",
   "⚡",
 ];
+const STORAGE_KEY = "memoryResults";
 let firstCard = null;
 let secondCard = null;
 let lockOnclick = false;
@@ -60,6 +61,17 @@ gameInfo.append(gameMovesString, gamePairsString);
 gameMovesString.append(gameMoves);
 gamePairsString.prepend(gamePairs);
 
+modal.addEventListener("click", (e) => {
+  const rect = modal.getBoundingClientRect();
+  const clickedInside =
+    e.clientX >= rect.left &&
+    e.clientX <= rect.right &&
+    e.clientY >= rect.top &&
+    e.clientY <= rect.bottom;
+
+  if (!clickedInside) modal.close();
+});
+
 function shuffle(array) {
   array.sort(function () {
     return Math.random() - 0.5;
@@ -81,6 +93,7 @@ function onClickCard(card, span) {
     return;
   }
   secondCard = [card, span];
+  totalMoves++;
 
   if (firstCard?.[1].textContent === secondCard?.[1].textContent) {
     firstCard?.[0].classList.add("card--active");
@@ -90,7 +103,10 @@ function onClickCard(card, span) {
     lockOnclick = false;
     totalPairs++;
     updateContent(gamePairs, totalPairs);
-    if (totalPairs === 8) openModal("winner");
+    if (totalPairs === 8) {
+      saveResult();
+      openModal("winner");
+    }
   } else {
     lockOnclick = true;
     timer = setTimeout(() => {
@@ -101,7 +117,6 @@ function onClickCard(card, span) {
       lockOnclick = false;
     }, 900);
   }
-  totalMoves++;
   updateContent(gameMoves, totalMoves);
 }
 
@@ -142,6 +157,29 @@ function openModal(type) {
   closeBtn.addEventListener("click", () => modal.close());
 
   if (type === "bests") {
+    let results = getResults().slice(0, 10);
+    if (results?.length) {
+      const resultTable = document.createElement("table");
+      results.map((raw, i) => {
+        let trValues = document.createElement("tr");
+        let num = document.createElement("th");
+        let date = document.createElement("th");
+        let moves = document.createElement("th");
+        num.textContent = i + 1;
+        date.textContent = raw.date;
+        moves.textContent = `${raw.moves} moves`;
+        trValues.append(num, date, moves);
+        resultTable.append(trValues);
+      });
+
+      modal.append(resultTable);
+    } else {
+      const resultStr = document.createElement("p");
+      resultStr.textContent = "No results";
+
+      modal.append(resultStr);
+    }
+    modal.append(closeBtn);
   } else if (type === "winner") {
     const winStr = document.createElement("h1");
     const movesStr = document.createElement("p");
@@ -158,6 +196,29 @@ function openModal(type) {
     modal.append(winStr, movesStr, newGameMBtn, closeBtn);
   }
   modal.showModal();
+}
+
+function saveResult() {
+  let results = getResults();
+  results.push({
+    date: new Date().toLocaleDateString(),
+    moves: totalMoves,
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(results));
+}
+
+function getResults() {
+  let results = localStorage.getItem(STORAGE_KEY);
+  if (results) {
+    return JSON.parse(results)
+      .slice()
+      .sort((a, b) => {
+        if (a.moves !== b.moves) return a.moves - b.moves;
+        return new Date(a.date) - new Date(b.date);
+      });
+  } else {
+    return [];
+  }
 }
 
 initGame();
