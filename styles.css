@@ -1,0 +1,97 @@
+body,
+main {
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: thistle;
+}
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  max-width: 100%;
+  background-color: darkcyan;
+}
+
+.game__btn {
+  background-color: thistle;
+  padding: 8px;
+  border-radius: 18px;
+  box-shadow: 2px 2px rgb(211, 147, 211);
+  border-style: none;
+  cursor: pointer;
+}
+.game__btn:hover {
+  background-color: rgb(204, 104, 138);
+  box-shadow: 2px 2px rgb(173, 65, 101);
+}
+.main {
+  display: flex;
+  max-width: 100%;
+  justify-content: center;
+  min-height: calc(100vh - 72px);
+  align-items: center;
+  flex-direction: column;
+}
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 350px;
+  height: fit-content;
+  padding: 10px;
+  background-color: rgb(207, 117, 147);
+  border-radius: 10px;
+}
+.card {
+  width: 80px;
+  height: 80px;
+  background-color: rgb(76, 179, 179);
+  border-radius: 10px;
+  font-size: 46px;
+  text-align: center;
+  line-height: 80px;
+  cursor: pointer;
+}
+.card__img--hiden {
+  display: none;
+}
+.card--active {
+  background-color: green;
+  cursor: default;
+}
+
+.game__info {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
+dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 50px;
+  border-color: rgb(207, 117, 147);
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px); /* размытие фона (опционально) */
+}
+dialog:not([open]) {
+  display: none;
+}
+table {
+  border: 2px solid rgb(140 140 140);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 10px;
+}
