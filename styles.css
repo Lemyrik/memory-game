@@ -18,17 +18,17 @@ body {
   background-color: darkcyan;
 }
 
-.header__btn {
+.game__btn {
   background-color: thistle;
   padding: 8px;
   border-radius: 18px;
   box-shadow: 2px 2px rgb(211, 147, 211);
   border-style: none;
+  cursor: pointer;
 }
-.header__btn:hover {
+.game__btn:hover {
   background-color: rgb(204, 104, 138);
   box-shadow: 2px 2px rgb(173, 65, 101);
-  cursor: pointer;
 }
 .main {
   display: flex;
@@ -70,4 +70,19 @@ body {
   width: 350px;
   display: flex;
   justify-content: space-between;
+}
+
+dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 50px;
+  border-color: rgb(207, 117, 147);
+}
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px); /* размытие фона (опционально) */
+}
+dialog:not([open]) {
+  display: none;
 }

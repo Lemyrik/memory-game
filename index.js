@@ -35,12 +35,13 @@ const gamePairsString = document.createElement("p");
 const gameMovesString = document.createElement("p");
 const gameMoves = document.createElement("span");
 const gamePairs = document.createElement("span");
-
+const modal = document.createElement("dialog");
 newGameBtn.addEventListener("click", () => initGame());
+bestsBtn.addEventListener("click", () => openModal("bests"));
 
 header.classList.add("header");
-newGameBtn.classList.add("header__btn");
-bestsBtn.classList.add("header__btn");
+newGameBtn.classList.add("game__btn");
+bestsBtn.classList.add("game__btn");
 main.classList.add("main");
 cardsContainer.classList.add("cardsContainer");
 gameInfo.classList.add("game__info");
@@ -53,7 +54,7 @@ gameMoves.textContent = "0";
 gamePairs.textContent = "0";
 
 header.append(newGameBtn, bestsBtn);
-body.append(header, main);
+body.append(header, main, modal);
 main.append(cardsContainer, gameInfo);
 gameInfo.append(gameMovesString, gamePairsString);
 gameMovesString.append(gameMoves);
@@ -89,6 +90,7 @@ function onClickCard(card, span) {
     lockOnclick = false;
     totalPairs++;
     updateContent(gamePairs, totalPairs);
+    if (totalPairs === 8) openModal("winner");
   } else {
     lockOnclick = true;
     timer = setTimeout(() => {
@@ -129,6 +131,33 @@ function initGame() {
 
 function updateContent(node, value) {
   node.textContent = value;
+}
+
+function openModal(type) {
+  modal.replaceChildren();
+
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "Close";
+  closeBtn.classList.add("game__btn");
+  closeBtn.addEventListener("click", () => modal.close());
+
+  if (type === "bests") {
+  } else if (type === "winner") {
+    const winStr = document.createElement("h1");
+    const movesStr = document.createElement("p");
+    const newGameMBtn = newGameBtn.cloneNode(true);
+
+    newGameMBtn.addEventListener("click", () => {
+      initGame();
+      modal.close();
+    });
+
+    winStr.textContent = "You win!!!";
+    movesStr.textContent = `Moves: ${totalMoves}`;
+
+    modal.append(winStr, movesStr, newGameMBtn, closeBtn);
+  }
+  modal.showModal();
 }
 
 initGame();
